@@ -31,8 +31,26 @@ const protect = async (req, res, next) => {
 }
 
 
+const checkPermissions = (req, res, next) => {
+
+
+     const user = req.user;
+ 
+     if((user.roles.indexOf("admin") === -1) && (user.roles.indexOf("vendor") === -1)){
+         return res.status(403).json({message: "User is neither vendor nor admin"});
+         
+     } else{
+         next();
+ 
+     }
+ 
+ }
+ 
+
+
 module.exports = {
 
 
-    protect
+    protect,
+    checkPermissions
 }
