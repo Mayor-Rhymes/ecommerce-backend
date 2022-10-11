@@ -32,15 +32,7 @@ const getItem = asyncHandler(async(req, res) => {
 
 const createItem = asyncHandler(async(req, res) => {
 
-    const user = req.user;
-
-
     
-    if((user.roles.indexOf("admin") === -1) && (user.roles.indexOf("vendor") === -1)){
-        return res.status(403).json({message: "User is neither vendor nor admin"});
-        
-    } 
-
 
 
     const {name, brand, model, category, price} = req.body;
@@ -63,14 +55,8 @@ const createItem = asyncHandler(async(req, res) => {
 const updateItem = asyncHandler(async(req, res) => {
 
 
-    const user = req.user;
     
-
     
-    if((user.roles.indexOf("admin") === -1) && (user.roles.indexOf("vendor") === -1)){
-        return res.status(403).json({message: "User is neither vendor nor admin"});
-        
-    } 
    const {id} = req.params;
 
    const {name, brand, model, category, price} = req.body;
@@ -103,13 +89,7 @@ const updateItem = asyncHandler(async(req, res) => {
 const deleteItem = asyncHandler(async(req, res) => {
   
     const {id} = req.params;
-    const user = req.user;
-
-    if((user.roles.indexOf("admin") === -1) && (user.roles.indexOf("vendor") === -1)){
-        return res.status(403).json({message: "User is neither vendor nor admin"});
-        
-    } 
-
+    
 
     const item = await Item.findOneAndDelete({id});
 
